@@ -106,6 +106,7 @@ function checkAnswer($userAnswer) {
       if (val) { // ok
         showNextSlide();
       } else { // cancel
+        window.location.href = "result.html";
       }
     });
 

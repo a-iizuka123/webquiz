@@ -135,5 +135,123 @@
 
       link: "https://enechange.jp/articles/average-of-family",
       category: "electric"
+    },
+    {
+      question: "DBとは？",
+      answers: {
+        a: "データベータの略",
+        b: "データベースの略",
+        c: "ダブルベースの略"
+      },
+      correctAnswer: "b",
+      explanation:  　"データベースの略。"
+                    + "「複数で共有、利用すること」と「検索、加工すること」を目的に整理されたデータの集まりを指す。"
+                    + "広い意味では紙の辞書やタウンページもデータベースに含まれる。",
+      link: "https://www.sejuku.net/blog/8763",
+      category: "sql_db"
+    },
+    {
+      question: "リレーショナルデータベース（RDB）について正しい説明は？",
+      answers: {
+        a: "データをkey（キー）とvalue（値）のペアにして管理するデータベース。 ",
+        b: "1件1件のデータをドキュメントのように格納する。",
+        c: "表形式でデータを管理する。また１つ１つのデータは一意でなくてはならない。"
+      },
+      correctAnswer: "c",
+      explanation:  　"「テーブル」といわれる表形式の構造でデータを管理する関係モデルを使ったデータベース。"
+                    + "１つ１つのデータは「レコード」と呼ばれ、重複は許されない。",
+      link: "https://www.sejuku.net/blog/8763",
+      category: "sql_db"
+    },
+    {
+      question: "RDBMSとは？",
+      answers: {
+        a: "RDBを拡張したデータベースでより自由にデータを管理できる",
+        b: "リレーショナルデータベースから取得したデータのこと",
+        c: "リレーショナルデータベースを管理するためのシステム"
+      },
+      correctAnswer: "c",
+      explanation:  　"RDBにデータを新しく追加したり、更新、削除するためのシステム。"
+                    + "Relational Database Management Systemの略。"
+                    + "MySQL, PostgreSQL, Oracle SQLなどが有名。",
+      link: "https://www.sejuku.net/blog/8763",
+      category: "sql_db"
+    },
+    {
+      question: "「DBをダンプする」のダンプとは？",
+      answers: {
+        a: "内容をファイルに出力すること",
+        b: "内容を捨てること",
+        c: "ダンプカーの略..."
+      },
+      correctAnswer: "a",
+      explanation:  　"「DBをダンプする」とはDBのデータをSQLなどの形でファイルに出力すること。"
+                    + "DBの内容をコピーしたり、バックアップとして取っておくときにDBをダンプする。"
+                    + "ダンプしたデータをDBに入れることをリストアと呼ぶ。",
+      link: "",
+      category: "sql_db"
+    },
+    {
+      question: "SQLでデータを検索する予約語は？",
+      answers: {
+        a: "DELETE",
+        b: "SELECT",
+        c: "UPDATE",
+        d: "SEARCH"
+      },
+      correctAnswer: "b",
+      explanation:  　"「SELECT (列名)　FROM (テーブル名)」でデータを取得できる。"
+                    + "例えばユーザテーブルからユーザ名をパスワードを取得するなら"
+                    + "「SELECT name, password FROM user」と書いたりする。",
+      link: "",
+      category: "sql_db"
+    },
+    {
+      question: "SQLでレコードを並びかえる予約語は？",
+      answers: {
+        a: "SORT",
+        b: "FILTER",
+        c: "ORDER BY",
+        d: "WHERE"
+      },
+      correctAnswer: "c",
+      explanation:  　"「SELECT (列名)　FROM (テーブル名) ORDER BY (列名)」で指定した並びでデータを取得できる。"
+                    + "例えばユーザテーブルから全件をユーザー名の昇順で並びかえて取得するなら、"
+                    + "「SELECT * FROM user ORDER BY name」と書いたりする。",
+      link: "",
+      category: "sql_db"
+    },
+    {
+      question: "「SELECT * FROM user ORDER BY name DESC」を実行した結果は？",
+      answers: {
+        a: "ジョジョ、ディオ、ポルナレフ",
+        b: "ディオ、ポルナレフ、ジョジョ",
+        c: "ポルナレフ、ディオ、ジョジョ"
+      },
+      correctAnswer: "c",
+      explanation:  　"DESCはDESCENDING(下向きの)の略で降順を意味する。"
+                    + "数字なら「5,4,3・・・」と大きい順に、"
+                    + "文字列なら「Z,Y,・・・B,A」、「こ,か,・・・い、あ」と後ろから順に並べる。"
+                    + "対義語としてASCがあり、昇順で並べる。"
+                    + "ASC,DESCの指定がなければデフォルトで昇順なので注意！",
+      link: "",
+      category: "sql_db"
+    },
+    {
+      question: "SQLでデータを更新する予約語は？",
+      answers: {
+        a: "UPLOAD",
+        b: "INSERT",
+        c: "UPGRADE",
+        d: "UPDATE"
+      },
+      correctAnswer: "d",
+      explanation:  　"「UPDATE (テーブル名)　SET (列名) = (値)」でレコードを更新できる。"
+                    + "例えばユーザテーブルでIDが1のユーザ名をジョジョに更新するなら"
+                    + "「UPDATE user SET name = 'ジョジョ' WHERE id = 1」と書いたりする。",
+      link: "https://www.sejuku.net/blog/8763",
+      category: "sql_db"
     }
+
+
   ];
