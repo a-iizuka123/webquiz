@@ -1,18 +1,34 @@
+// Whole-script strict mode syntax
+"use strict";
+
+// 正解数を保持
+let numCorrect = 0;
+// 問題数を保持
+let numQuestions = 0;
+// 表示中のスライド
+let currentSlide = 0;
+
 function buildQuiz() {
   // we'll need a place to store the HTML output
   const output = [];
 
+  let arg = getUrlParams();
   // for each question...
   myQuestions.forEach((currentQuestion, questionNumber) => {
+
+    if (currentQuestion.category !== arg.category) {
+      return;
+    }
+    numQuestions++;
+
     // we'll want to store the list of answer choices
     const answers = [];
 
     // and for each available answer...
-    for (letter in currentQuestion.answers) {
+    for (let letter in currentQuestion.answers) {
       // ...add an HTML radio button
       answers.push(
         `<div class="choices" name="question${questionNumber}" value="${letter}">
-            ${letter} :
             ${currentQuestion.answers[letter]}
           </div>`
       );
@@ -33,11 +49,8 @@ function buildQuiz() {
   $("#quiz").html(output.join(""));
 }
 
-function showResults($userAnswer) {
+function checkAnswer($userAnswer) {
   // gather answer containers from our quiz
-
-  // keep track of user's answers
-  let numCorrect = 0;
 
     // find selected answer
     const userAnswer = $userAnswer.attr('value');
@@ -63,19 +76,32 @@ function showResults($userAnswer) {
       }
     };
 
-    // if answer is correct
+    let option = new Object;
     if (userAnswer === correctAns) {
       // add to the number of correct answers
       numCorrect++;
-      //$userAnswer.css("background-color", "lightgreen");
+      $userAnswer.css("background-color", "lightgreen");
       option = success;
     } else {
       $userAnswer.css("background-color", "red");
-      //$('.choices[value=' + correctAns + ']').css("background-color", "lightgreen")
+      $('.choices[value=' + correctAns + ']').css("background-color", "lightgreen")
       incorrect.text = myQuestions[questionNumber].explanation;
       option = incorrect;
     }
 
+    // 結果画面用に保持
+    window.sessionStorage.setItem('numQuestions', numQuestions);
+    window.sessionStorage.setItem('numCorrect', numCorrect);
+    let mistakes = [];
+    let past_mistakes = window.sessionStorage.getItem('mistakes');
+    if (past_mistakes != undefined) {
+      mistakes.push(past_mistakes);
+    }
+    mistakes.push (myQuestions[questionNumber].question);
+    window.sessionStorage.setItem('mistakes', mistakes);
+
+
+    // 次の画面へ
     swal(option).then(function(val) {
       if (val) { // ok
         showNextSlide();
@@ -90,10 +116,15 @@ function showResults($userAnswer) {
 function showSlide(n) {
   $('.slide').eq(currentSlide).removeClass("active-slide");
   $('.slide').eq(n).addClass("active-slide");
+  $('.choices').css("background-color", "");
   currentSlide = n;
 }
 
 function showNextSlide() {
+  if (currentSlide === numQuestions -1) {
+    // 全ての問題を解いたら結果画面へ遷移
+    window.location.href = "result.html";
+  }
   showSlide(currentSlide + 1);
 }
 
@@ -101,41 +132,23 @@ function showPreviousSlide() {
   showSlide(currentSlide - 1);
 }
 
-let currentSlide = 0;
-
 $(document).ready(function(){
 
   const quizContainer = document.getElementById("quiz");
   const resultsContainer = document.querySelectorAll("results");
   const submitButton = document.querySelectorAll(".choices");
 
-  // display quiz right away
+  // 問題を用意
   buildQuiz();
 
+  // 1問目を表示
   showSlide(0);
 });
 
-// Promiseを使う方法
-function sleepByPromise(sec) {
 
-   return new Promise(resolve => setTimeout(resolve, sec*1000));
-
-}
-
-// async修飾子を使って非同期関数を宣言します。
-async function wait(sec) {
-
-   console.log('wait ' + sec.toString() + ' sec right now!');
-
-   // await句を使って、Promiseの非同期処理が完了するまで待機します。
-   await sleepByPromise(sec);
-
-   console.log('wait ' + sec.toString() + ' sec done!');
-}
-
-// on submit, show results
 $(document).on('click', '.choices', function() {
 
-  showResults($(this));
+  // 正誤判定
+  checkAnswer($(this));
 
 })
