@@ -18,6 +18,12 @@ h1{
   color: #fff;
 }
 
+@media screen and (max-width:375px) {
+  h1 {
+    height: 10%;
+  }
+}
+
 .button{
   background-color: #279;
   color: #fff;
